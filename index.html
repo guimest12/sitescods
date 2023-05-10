@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Editor de Código</title>
+    <style>
+      /* Estilo para os quadros de edição */
+      .quadro {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      /* Estilo para os títulos */
+      h2 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      /* Estilo para o quadro de resultado */
+      #resultado {
+        border: 1px solid #ccc;
+        padding: 100px;
+        height: 200px; /* altura fixa para evitar o redimensionamento do quadro */
+        overflow-y: scroll; /* ativa a barra de rolagem vertical */
+      }
+
+      /* Centraliza o conteúdo na página */
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* altura da janela do navegador */
+        background-image: url('https://img.freepik.com/fotos-gratis/fundo-azul-do-gradiente-de-luxo-abstrato-liso-azul-escuro-com-vinheta-preta-studio-banner_1258-54059.jpg'); /* caminho da imagem de fundo */
+        background-size: cover; /* redimensiona a imagem para preencher todo o elemento */
+        background-position: center; /* centraliza a imagem na horizontal e vertical */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quadro">
+      <h2>HTML</h2>
+      <textarea id="html" rows="10" cols="50"></textarea>
+    </div>
+
+    <div class="quadro">
+      <h2>CSS</h2>
+      <textarea id="css" rows="10" cols="50"></textarea>
+    </div>
+
+    <div class="quadro">
+      <h2>JavaScript</h2>
+      <textarea id="js" rows="10" cols="50"></textarea>
+    </div>
+
+    <button id="btn-atualizar">Atualizar</button>
+
+    <div id="resultado"></div>
+
+    <script>
+      const btnAtualizar = document.getElementById('btn-atualizar');
+      btnAtualizar.addEventListener('click', () => {
+        const html = document.getElementById('html').value;
+        const css = document.getElementById('css').value;
+        const js = document.getElementById('js').value;
+        const resultado = document.getElementById('resultado');
+
+        // Cria um iframe para exibir o resultado
+        const iframe = document.createElement('iframe');
+        resultado.innerHTML = ''; // limpa o conteúdo anterior
+        resultado.appendChild(iframe);
+
+        // Insere o conteúdo do HTML, CSS e JS no iframe
+        const doc = iframe.contentDocument;
+        const style = doc.createElement('style');
+        style.innerHTML = css;
+        const script = doc.createElement('script');
+        script.innerHTML = js;
+        doc.head.appendChild(style);
+        doc.body.innerHTML = html;
+        doc.body.appendChild(script);
+      });
+    </script>
+  </body>
+</html>
